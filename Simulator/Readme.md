@@ -16,9 +16,7 @@ make
 ## Important
 
 * Les deux programmes doivent être lancés **en parallèle**.
-* Si **rien ne s'affiche dans l'UI**, cela signifie que :
-
-**le format des données envoyées est incorrect**
+* Si **rien ne s'affiche dans l'UI**, cela signifie que : **le format des données envoyées est incorrect**
 
 ---
 
