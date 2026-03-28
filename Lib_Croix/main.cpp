@@ -4,35 +4,14 @@
 #include <string>
 #include <fstream>
 #include <vector>
-#include <array>
+#include <iostream>
+#include <filesystem>
 
 CroixPharma croix;
 uint8_t bitmap[SIZE][SIZE];
 std::vector<std::string> lines;
 
-std::array<const char *, 21> pharmaFiles = {{
-    "output/out1.png.pharma",
-    "output/out2.png.pharma",
-    "output/out3.png.pharma",
-    "output/out4.png.pharma",
-    "output/out5.png.pharma",
-    "output/out6.png.pharma",
-    "output/out7.png.pharma",
-    "output/out8.png.pharma",
-    "output/out9.png.pharma",
-    "output/out10.png.pharma",
-    "output/out11.png.pharma",
-    "output/out12.png.pharma",
-    "output/out13.png.pharma",
-    "output/out14.png.pharma",
-    "output/out15.png.pharma",
-    "output/out16.png.pharma",
-    "output/out17.png.pharma",
-    "output/out18.png.pharma",
-    "output/out19.png.pharma",
-    "output/out20.png.pharma",
-    "output/out21.png.pharma",
-}};
+std::vector<std::string> pharmaFiles;
 
 std::size_t fileIndex = 0;
 
@@ -50,12 +29,32 @@ void displayImage()
     croix.writeBitmap(bitmap);
 }
 
+// In case not compiled with C++20
+bool hasEnding (std::string const &fullString, std::string const &ending) {
+    if (fullString.length() >= ending.length()) {
+        return (0 == fullString.compare (fullString.length() - ending.length(), ending.length(), ending));
+    } else {
+        return false;
+    }
+}
+
+void getAllPharmaFiles()
+{
+    const std::string path = "output/";
+    for (const auto & entry : std::filesystem::directory_iterator(path)) {
+        if (hasEnding(entry.path().string(), ".pharma")) {
+            pharmaFiles.push_back(entry.path().string());
+        }
+    }
+}
+
 int main() {
     if (wiringPiSetupGpio() < 0) {
         return 1;
     }
 
     croix.begin();
+    getAllPharmaFiles();
 
     while (true) {
         lines.clear();

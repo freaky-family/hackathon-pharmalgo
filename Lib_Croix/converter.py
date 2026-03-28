@@ -6,30 +6,17 @@
 # ///
 
 from PIL import Image
+from os import listdir
+from os.path import isfile, join
 
-files = [
-    "output/out15.png.converted",
-    "output/out21.png.converted",
-    "output/out7.png.converted",
-    "output/out12.png.converted",
-    "output/out6.png.converted",
-    "output/out20.png.converted",
-    "output/out10.png.converted",
-    "output/out8.png.converted",
-    "output/out17.png.converted",
-    "output/out16.png.converted",
-    "output/out9.png.converted",
-    "output/out5.png.converted",
-    "output/out2.png.converted",
-    "output/out14.png.converted",
-    "output/out3.png.converted",
-    "output/out11.png.converted",
-    "output/out13.png.converted",
-    "output/out4.png.converted",
-    "output/out1.png.converted",
-    "output/out19.png.converted",
-    "output/out18.png.converted",
-]
+files = []
+
+DIRNAME = "output"
+onlyFiles = [f for f in listdir(DIRNAME) if isfile(join(DIRNAME, f))]
+
+for file in onlyFiles:
+    if file.endswith(".converted"):
+        files.append(DIRNAME + "/" + file)
 
 for file in files:
     im = Image.open(file)
@@ -46,6 +33,4 @@ for file in files:
                     f.write(".")
                 else:
                     f.write("x")
-                # print(x, y, r, g, b)
             f.write("\n")
-
