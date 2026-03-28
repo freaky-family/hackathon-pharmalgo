@@ -1,4 +1,4 @@
 challenge
 programme
-output/*.png
-output/*.converted
+Lib_Croix/output/*.png
+Lib_Croix/output/*.converted
