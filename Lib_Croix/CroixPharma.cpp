@@ -2,16 +2,16 @@
 #include <cstring>
 
 CroixPharma::CroixPharma() {
-    selectedSide = LEFT;
+    selectedSide = BOTH;
 }
 
 void CroixPharma::begin() {
-    pinMode(SIDE_LEFT.LATCH,OUTPUT);  pinMode(SIDE_LEFT.CLOCK,OUTPUT);  pinMode(SIDE_LEFT.DATA,OUTPUT);  pinMode(SIDE_LEFT.OE,OUTPUT); 
+    pinMode(SIDE_LEFT.LATCH,OUTPUT);  pinMode(SIDE_LEFT.CLOCK,OUTPUT);  pinMode(SIDE_LEFT.DATA,OUTPUT);  pinMode(SIDE_LEFT.OE,OUTPUT);
     digitalWrite(SIDE_LEFT.OE,LOW);
-    
-    pinMode(SIDE_RIGHT.LATCH,OUTPUT); pinMode(SIDE_RIGHT.CLOCK,OUTPUT); pinMode(SIDE_RIGHT.DATA,OUTPUT); pinMode(SIDE_RIGHT.OE,OUTPUT); 
+
+    pinMode(SIDE_RIGHT.LATCH,OUTPUT); pinMode(SIDE_RIGHT.CLOCK,OUTPUT); pinMode(SIDE_RIGHT.DATA,OUTPUT); pinMode(SIDE_RIGHT.OE,OUTPUT);
     digitalWrite(SIDE_RIGHT.OE,LOW);
-    
+
     setSide(selectedSide);
 }
 
@@ -33,7 +33,7 @@ void CroixPharma::clearHardware() {
 
 void CroixPharma::sendBit(bool b, SidePins side) {
     digitalWrite(side.DATA, b);
-    
+
     digitalWrite(side.CLOCK, HIGH);
     delayMicroseconds(1); // Obligatoire pour évité le flash
     digitalWrite(side.CLOCK, LOW);
@@ -57,7 +57,7 @@ void CroixPharma::mapBitmapToPanels(SidePins side) {
 
 void CroixPharma::renderCrossSide(SidePins side) {
     mapBitmapToPanels(side);
-    
+
     for(int p=PANELS-1;p>=0;p--) {
         for(int y=0;y<8;y++) {
             for(int x=7;x>=0;x--) {
@@ -66,12 +66,12 @@ void CroixPharma::renderCrossSide(SidePins side) {
         }
     }
 
-    digitalWrite(side.OE, HIGH); 
-    
-    digitalWrite(side.LATCH, HIGH); 
+    digitalWrite(side.OE, HIGH);
+
+    digitalWrite(side.LATCH, HIGH);
     delayMicroseconds(1);
     digitalWrite(side.LATCH, LOW);
-    
+
     digitalWrite(side.OE, LOW);
 }
 
