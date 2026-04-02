@@ -1,3 +1,8 @@
+> [!WARNING]
+> Outdated repo, go see the latest version over at Cannelle's repo
+> 
+> https://github.com/cannellegrdt/Pharmalgo-projects
+
 ### Turn any video into frames for the Croix
 
 #### Requirements:
